@@ -20,6 +20,17 @@ $routes->get('users/edit/(:segment)', 'Users::edit/$1');
 $routes->post('users/update', 'Users::update');
 $routes->delete('users/delete/(:num)', 'Users::delete/$1');
 $routes->post('users/fetchRecords', 'Users::fetchRecords');
-
-// Logs routes for admin
-$routes->get('/log', 'Logs::log');
+// Person Routes
+$routes->get('person', 'Person::index');
+$routes->post('person/save', 'Person::save');
+$routes->post('person/delete/(:any)', 'Person::delete/$1');
+$routes->get('person/edit/(:any)', 'Person::edit/$1');
+$routes->post('person/update', 'Person::update_person');
+// Dashboard routing
+$routes->get('dashboard/new-orders', 'Dashboard::newOrders');
+$routes->get('dashboard/bounce-rate', 'Dashboard::bounceRate');
+$routes->get('dashboard/user-registrations', 'Dashboard::userRegistrations');
+$routes->get('dashboard/unique-visitors', 'Dashboard::uniqueVisitors');
+// This maps the URL with a dash to your controller method
+$routes->get('user-registrations', 'Dashboard::userRegistrations');
+$routes->get('log/index', 'Logs::log');
