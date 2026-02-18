@@ -33,4 +33,5 @@ $routes->get('dashboard/user-registrations', 'Dashboard::userRegistrations');
 $routes->get('dashboard/unique-visitors', 'Dashboard::uniqueVisitors');
 // This maps the URL with a dash to your controller method
 $routes->get('user-registrations', 'Dashboard::userRegistrations');
-$routes->get('log/index', 'Logs::log');
+$routes->get('log', 'Logs::index');
+$routes->get('dashboard', 'Dashboard::log');

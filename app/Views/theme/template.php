@@ -177,6 +177,3 @@ themeToggle.addEventListener('click', function(e){
 });
 </script>
 <script src="<?= base_url('js/user.js') ?>"></script>
-<main>
-    <?= $this->renderSection('content') ?> 
-</main>

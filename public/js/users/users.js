@@ -155,56 +155,47 @@ $(document).ready(function () {
         ],
         responsive: true,
         autoWidth: false
+
+        
     });
     document.addEventListener('DOMContentLoaded', function() {
-    const clockElement = document.getElementById('live-clock');
-    const greetingElement = document.getElementById('live-greeting');
-function updateClock() {
-    const now = new Date();
+    function updateClock() {
+        const now = new Date();
+        
+        // Match the IDs from your HTML exactly
+        const clockEl = document.getElementById('live-clock');
+        const dateEl = document.getElementById('live-date');
+        const greetingEl = document.getElementById('greeting');
 
-    // 1. Format Time (Asia/Manila)
-    const timeOptions = { 
-        timeZone: 'Asia/Manila', 
-        hour12: true, 
-        hour: '2-digit', 
-        minute: '2-digit', 
-        second: '2-digit' 
-    };
-    const timeString = now.toLocaleTimeString('en-US', timeOptions);
+        // Philippines Timezone formatting
+        const timeOptions = { 
+            timeZone: 'Asia/Manila', 
+            hour12: true, 
+            hour: '2-digit', 
+            minute: '2-digit', 
+            second: '2-digit' 
+        };
 
-    // 2. Format Date (e.g., Saturday, February 14, 2026)
-    const dateOptions = { 
-        timeZone: 'Asia/Manila', 
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
-    };
-    const dateString = now.toLocaleDateString('en-US', dateOptions);
+        if (clockEl) {
+            clockEl.textContent = now.toLocaleTimeString('en-US', timeOptions);
+        }
 
-    // 3. Dynamic Greeting Logic
-    const hour = now.getHours();
-    let greeting = "Good Day!";
-    if (hour < 12) greeting = "Good Morning!";
-    else if (hour < 18) greeting = "Good Afternoon!";
-    else greeting = "Good Evening!";
+        if (dateEl) {
+            const dateOptions = { timeZone: 'Asia/Manila', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            dateEl.textContent = now.toLocaleDateString('en-US', dateOptions);
+        }
 
-    // Update the UI - Ensure these IDs exist in your HTML
-    if(document.getElementById('live-clock')) document.getElementById('live-clock').textContent = timeString;
-    if(document.getElementById('live-date')) document.getElementById('live-date').textContent = dateString;
-    if(document.getElementById('greeting')) document.getElementById('greeting').textContent = greeting;
-
-    // Visual Pulse for the Icon
-    const icon = document.getElementById('clock-icon');
-    if (icon) {
-        icon.style.transition = "opacity 0.5s ease"; // Smooth pulse
-        icon.style.opacity = (icon.style.opacity == "0.5") ? "1" : "0.5";
+        if (greetingEl) {
+            const hr = now.getHours();
+            let g = (hr < 12) ? "Good Morning" : (hr < 18) ? "Good Afternoon" : "Good Evening";
+            greetingEl.textContent = g + "!";
+        }
     }
-}
 
-// Refresh every 1 second
-setInterval(updateClock, 1000);
-updateClock();
+    // Start the clock
+    updateClock(); 
+    setInterval(updateClock, 1000);
+});
+   
     });
     
-});

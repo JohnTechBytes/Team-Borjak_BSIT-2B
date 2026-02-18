@@ -16,18 +16,18 @@ class Dashboard extends BaseController
     $logModel = model(LogModel::class);
 
     $data = [
-        'totalRegistrations' => $logModel->countAllResults(),
-        'lastUpdate'         => date('h:i:s A'),
-        'systemStatus'       => 'Optimal',
+        'totalRegistrations'=> $logModel->countAllResults(),
+        'lastUpdate' => date('h:i:s A'),
+        'systemStatus' => 'Optimal',
         // Fetch only the 5 most recent activities for the dashboard
-        'recentLogs'         => $logModel->orderBy('DATELOG', 'DESC')
+        'recentLogs' => $logModel->orderBy('DATELOG', 'DESC')
                                          ->orderBy('TIMELOG', 'DESC')
-                                         ->findAll(5), 
+                                         ->findAll(7), 
     ];
     // We sort by date first, then time, to get the most recent entries
-$recentLogs = $logModel->orderBy('DATELOG', 'DESC')
+ $logModel->orderBy('DATELOG', 'DESC')
                        ->orderBy('TIMELOG', 'DESC')
-                       ->limit(5)
+                       ->limit(7)
                        ->find();
 
     return view('Dashboard/dashboard', $data);
@@ -92,7 +92,7 @@ public function store()
 }
 public function log()
 {
-    return view('log/index');
+    return view('dashboard/user-regstration');
 }
 
 

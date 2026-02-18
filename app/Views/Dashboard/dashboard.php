@@ -26,6 +26,7 @@
 
 <?= $this->extend('theme/template') ?>
 
+
 <?= $this->section('content') ?>
 <div class="content-wrapper">
     <div class="content-header">
@@ -78,7 +79,7 @@
             </div>
 
             <div class="row fade-in-up d-flex align-items-stretch">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="card card-outline card-primary shadow-sm h-100 mb-0">
                         <div class="card-header">
                             <h3 class="card-title font-weight-bold"><i class="fas fa-history mr-1"></i> Recent Activity</h3>
@@ -104,70 +105,14 @@
                             </table>
                         </div>
                         <div class="card-footer text-center">
-                            <a href="<?= base_url('log/index') ?>">View All Logs <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="<?= base_url('dashboard/user-registrations') ?>">View All Logs <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-4">
-                    <div class="card bg-dark text-white shadow-sm h-100 mb-0">
-                        <div class="card-body d-flex flex-column justify-content-center">
-                            <h5 class="text-info font-weight-bold" id="greeting">Good Day!</h5>
-                            <div class="d-flex align-items-center py-2">
-                                <i class="fas fa-clock fa-2x text-warning mr-3" id="clock-icon"></i>
-                                <div>
-                                    <h2 class="mb-0 font-weight-bold" id="live-clock">00:00:00</h2>
-                                    <div class="small text-uppercase text-muted" id="live-date">Loading date...</div>
-                                </div>
-                            </div>
-                            
-                            <hr style="border-top: 1px solid rgba(255,255,255,0.1);">
-
-                            <p class="small mb-2">
-                                <i class="fas fa-map-marker-alt text-danger"></i> 
-                                System localized to: <strong>Philippines</strong>
-                            </p>
-
-                            <div class="d-flex align-items-center">
-                                <span class="pulse-dot-inline mr-2"></span>
-                                <strong class="<?= $status_class ?? 'text-success' ?> mr-1">
-                                    <?= $server_status ?? 'Optimal' ?>
-                                </strong>
-                                <span class="small text-muted">(<?= isset($db_latency) ? round($db_latency, 2) : '0' ?>ms)</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> </div>
+            
+            </div> 
     </section>
 </div>
 
-<script>
-    function updateClock() {
-        const now = new Date();
-        
-        // 1. Update Time
-        const timeOptions = { timeZone: 'Asia/Manila', hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' };
-        document.getElementById('live-clock').textContent = now.toLocaleTimeString('en-US', timeOptions);
-
-        // 2. Update Date
-        const dateOptions = { timeZone: 'Asia/Manila', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        document.getElementById('live-date').textContent = now.toLocaleDateString('en-US', dateOptions);
-
-        // 3. Update Greeting
-        const hour = now.getHours();
-        let greeting = "Good Day!";
-        if (hour < 12) greeting = "Good Morning!";
-        else if (hour < 18) greeting = "Good Afternoon!";
-        else greeting = "Good Evening!";
-        document.getElementById('greeting').textContent = greeting;
-
-        // 4. Pulse the Icon
-        const icon = document.getElementById('clock-icon');
-        icon.style.opacity = (icon.style.opacity == 0.5) ? 1 : 0.5;
-    }
-
-    setInterval(updateClock, 1000);
-    updateClock();
-</script>
 <?= $this->endSection() ?>
