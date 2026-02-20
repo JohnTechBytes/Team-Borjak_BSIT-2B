@@ -39,3 +39,10 @@ $routes->get('student/edit/(:segment)', 'Student::edit/$1');
 $routes->post('student/update', 'Student::update');
 $routes->delete('student/delete/(:num)', 'Student::delete/$1');
 $routes->post('student/fetchRecords', 'Student::fetchRecords');
+//parent routes
+$routes->get('/parent', 'Parents::index');
+$routes->post('parent/save', 'Parents::save');
+$routes->get('parent/edit/(:segment)', 'Parents::edit/$1');
+$routes->post('parent/update', 'Parents::update');
+$routes->delete('parent/delete/(:num)', 'Parents::delete/$1');
+$routes->post('parent/fetchRecords', 'Parents::fetchRecords');
