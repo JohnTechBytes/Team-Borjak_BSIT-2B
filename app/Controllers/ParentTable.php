@@ -9,7 +9,7 @@ use App\Models\StudentModel;
 use App\Models\ParentModel;
 
 
-class Parents extends Controller
+class ParentTable extends Controller
 {
     public function index() {
         $model = new ParentModel();
