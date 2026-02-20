@@ -5,44 +5,30 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use CodeIgniter\Controller;
 use App\Models\LogModel;
+use App\Models\StudentModel;
 
-class Users extends Controller
+
+class Student extends Controller
 {
     public function index() {
-        $model = new UserModel();
-        $data['users'] = $model->findAll();
-        return view('users/index', $data);
+        $model = new StudentModel();
+        $data['student'] = $model->findAll();
+        return view('student/index', $data);
     }
 
     public function save() {
-        $userModel = new UserModel();
+      
+        $name     = $this->request->getPost('name1');
+        $bday    = $this->request->getPost('bday');
+        $address = $this->request->getPost('address');
+        $userModel = new StudentModel();
         $logModel = new LogModel();
 
-        $name     = $this->request->getPost('name');
-        $email    = $this->request->getPost('email');
-        $password = $this->request->getPost('password');
-        $role     = $this->request->getPost('role');
-        $status   = $this->request->getPost('status');
-        $phone    = $this->request->getPost('phone');
-
-        if (!$email || !$password) {
-            return $this->response->setJSON(['status' => 'error', 'message' => 'Email and password are required']);
-        }
-
-        // Check if email exists
-        if ($userModel->where('email', $email)->first()) {
-            return $this->response->setJSON(['status' => 'error', 'message' => 'Email is already in use']);
-        }
-        
 
         $data = [
             'name'       => $name,
-            'email'      => $email,
-            'password'   => password_hash('password', 'PASSWORD_DEFAULT'),
-            'role'       => $role,
-            'status'     => $status,
-            'phone'      => $phone,
-            'updated_at' => date('Y-m-d H:i:s'),
+            'address'      => $address,
+            'bday'       => $bday
         ];
 
         if ($userModel->insert($data)) {
@@ -54,34 +40,19 @@ class Users extends Controller
     }
 
     public function update() {
-        $model = new UserModel();
+        $model = new StudentModel();
         $logModel = new LogModel();
 
         $userId   = $this->request->getPost('id');
         $name     = $this->request->getPost('name');
-        $email    = $this->request->getPost('email');
-        $password = $this->request->getPost('password');
-        $role     = $this->request->getPost('role');
-        $status   = $this->request->getPost('status');
-        $phone    = $this->request->getPost('phone');
-
-        if (empty($email)) {
-            return $this->response->setJSON(['success' => false, 'message' => 'Email is required']);
-        }
-
-        // Email check for other users
-        $existingUser = $model->where('email', $email)->where('id !=', $userId)->first();
-        if ($existingUser) {
-            return $this->response->setJSON(['success' => false, 'message' => 'Email taken by another user.']);
-        }
-
+        $bday    = $this->request->getPost('bday');
+        $address = $this->request->getPost('address');
+       
         $userData = [
             'name'       => $name,
-            'email'      => $email,
-            'role'       => $role,
-            'status'     => $status,
-            'phone'      => $phone,
-            'updated_at' => date('Y-m-d H:i:s'),
+            'bday'      => $bday,
+            'address'       => $address,
+      
         ];
 
         if (!empty($password)) {
@@ -97,7 +68,7 @@ class Users extends Controller
     }
 
     public function edit($id) {
-        $model = new UserModel();
+        $model = new StudentModel();
         $user = $model->find($id);
 
         if ($user) {
@@ -108,7 +79,7 @@ class Users extends Controller
     }
 
     public function delete($id) {
-        $model = new UserModel();
+        $model = new StudentModel();
         $logModel = new LogModel();
 
         if ($model->delete($id)) {
@@ -121,7 +92,7 @@ class Users extends Controller
 
     public function fetchRecords() {
         $request = service('request');
-        $model = new UserModel();
+        $model = new StudentModel();
 
         $start = $request->getPost('start') ?? 0;
         $length = $request->getPost('length') ?? 10;
@@ -137,11 +108,9 @@ class Users extends Controller
                 'row_number' => $counter++,
                 'id'         => $row['id'],
                 'name'       => $row['name'] ?? '',
-                'email'      => $row['email'] ?? '',
-                'role'       => $row['role'] ?? '',
-                'status'     => $row['status'] ?? '',
-                'phone'      => $row['phone'] ?? '',
-                'created_at' => $row['created_at'] ?? '',
+                'bday'      => $row['bday'] ?? '',
+                'address'      => $row['address'] ?? '',
+           
             ];
         }
 
