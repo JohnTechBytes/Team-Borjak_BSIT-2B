@@ -13,8 +13,8 @@ class Parents extends Controller
 {
     public function index() {
         $model = new ParentModel();
-        $data['parent'] = $model->findAll();
-        return view('parent/index', $data);
+        $data['student'] = $model->findAll();
+        return view('student/index', $data);
     }
 
     public function save() {
@@ -40,36 +40,44 @@ class Parents extends Controller
         }
     }
 
-    public function fetchRecords() {
-        $request = service('request');
+    public function update() {
         $model = new ParentModel();
+        $logModel = new LogModel();
 
-        $start = $request->getPost('start') ?? 0;
-        $length = $request->getPost('length') ?? 10;
-        $searchValue = $request->getPost('search')['value'] ?? '';
+        $userId   = $this->request->getPost('id');
+        $name     = $this->request->getPost('name');
+        $bday    = $this->request->getPost('bday');
+        $address = $this->request->getPost('address');
+       
+        $userData = [
+            'name'       => $name,
+            'bday'      => $bday,
+            'address'       => $address,
+      
+        ];
 
-        $totalRecords = $model->countAll();
-        $result = $model->getRecords($start, $length, $searchValue);
-
-        $data = [];
-        $counter = $start + 1;
-        foreach ($result['data'] as $row) {
-            $data[] = [
-                'row_number' => $counter++,
-                'id'         => $row['id'],
-                'name'       => $row['name'] ?? '',
-                'bday'      => $row['bday'] ?? '',
-                'address'      => $row['address'] ?? '',
-           
-            ];
+        if (!empty($password)) {
+            $userData['password'] = password_hash('password', 'PASSWORD_BCRYPT');
         }
 
-        return $this->response->setJSON([
-            'draw'            => intval($request->getPost('draw')),
-            'recordsTotal'    => $totalRecords,
-            'recordsFiltered' => $result['filtered'],
-            'data'            => $data,
-        ]);
+        if ($model->update($userId, $userData)) {
+            $logModel->addLog('User updated: ' . $name, 'UPDATED');
+            return $this->response->setJSON(['success' => true, 'message' => 'User updated successfully.']);
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Error updating user.']);
+        }
     }
+
+    public function edit($id) {
+        $model = new ParentModel();
+        $user = $model->find($id);
+
+        if ($user) {
+            return $this->response->setJSON(['data' => $user]);
+        } else {
+            return $this->response->setStatusCode(404)->setJSON(['error' => 'User not found']);
+        }
+    }
+
     
 }
