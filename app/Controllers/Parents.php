@@ -13,8 +13,8 @@ class Parents extends Controller
 {
     public function index() {
         $model = new ParentModel();
-        $data['student'] = $model->findAll();
-        return view('student/index', $data);
+        $data['parent'] = $model->findAll();
+        return view('parent/index', $data);
     }
 
     public function save() {
@@ -39,9 +39,8 @@ class Parents extends Controller
             return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to save user']);
         }
     }
-
     public function update() {
-        $model = new ParentModel();
+        $model = new StudentModel();
         $logModel = new LogModel();
 
         $userId   = $this->request->getPost('id');
@@ -79,5 +78,50 @@ class Parents extends Controller
         }
     }
 
+
+    public function delete($id) {
+        $model = new ParentModel();
+        $logModel = new LogModel();
+
+        if ($model->delete($id)) {
+            $logModel->addLog('Deleted user ID: ' . $id, 'DELETED');
+            return $this->response->setJSON(['success' => true, 'message' => 'User deleted successfully.']);
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Failed to delete user.']);
+        }
+    }
+
+
+    public function fetchRecords() {
+        $request = service('request');
+        $model = new ParentModel();
+
+        $start = $request->getPost('start') ?? 0;
+        $length = $request->getPost('length') ?? 10;
+        $searchValue = $request->getPost('search')['value'] ?? '';
+
+        $totalRecords = $model->countAll();
+        $result = $model->getRecords($start, $length, $searchValue);
+
+        $data = [];
+        $counter = $start + 1;
+        foreach ($result['data'] as $row) {
+            $data[] = [
+                'row_number' => $counter++,
+                'id'         => $row['id'],
+                'name'       => $row['name'] ?? '',
+                'bday'      => $row['bday'] ?? '',
+                'address'      => $row['address'] ?? '',
+           
+            ];
+        }
+
+        return $this->response->setJSON([
+            'draw'            => intval($request->getPost('draw')),
+            'recordsTotal'    => $totalRecords,
+            'recordsFiltered' => $result['filtered'],
+            'data'            => $data,
+        ]);
+    }
     
 }
