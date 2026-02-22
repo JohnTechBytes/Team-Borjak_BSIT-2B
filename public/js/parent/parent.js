@@ -41,8 +41,9 @@ $(document).on('click', '.edit-btn', function () {
         if (response.data) {
             $('#editUserModal #name').val(response.data.name);
             $('#editUserModal #userId').val(response.data.id);
-            $('#editUserModal #address').val(response.data.address);
             $('#editUserModal #bday').val(response.data.bday);
+            $('#editUserModal #address').val(response.data.address);
+        
             $('#editUserModal').modal('show');
         } else {
             alert('Error fetching user data');

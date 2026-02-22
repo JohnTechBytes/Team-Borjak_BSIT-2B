@@ -2,10 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Models\UserModel;
 use CodeIgniter\Controller;
 use App\Models\LogModel;
-use App\Models\StudentModel;
 use App\Models\ParentModel;
 
 
@@ -19,7 +17,7 @@ class ParentTable extends Controller
 
     public function save() {
       
-        $name     = $this->request->getPost('name1');
+        $name     = $this->request->getPost('name');
         $bday    = $this->request->getPost('bday');
         $address = $this->request->getPost('address');
         $userModel = new ParentModel();
@@ -40,7 +38,7 @@ class ParentTable extends Controller
         }
     }
     public function update() {
-        $model = new StudentModel();
+        $model = new ParentModel();
         $logModel = new LogModel();
 
         $userId   = $this->request->getPost('id');

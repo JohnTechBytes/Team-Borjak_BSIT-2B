@@ -39,8 +39,8 @@ $(document).on('click', '.edit-btn', function () {
     dataType: 'json',
     success: function (response) {
         if (response.data) {
-            $('#editUserModal #name').val(response.data.name);
             $('#editUserModal #userId').val(response.data.id);
+            $('#editUserModal #name').val(response.data.name);
             $('#editUserModal #address').val(response.data.address);
             $('#editUserModal #bday').val(response.data.bday);
             $('#editUserModal').modal('show');

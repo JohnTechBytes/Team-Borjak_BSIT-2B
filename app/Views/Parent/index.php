@@ -67,7 +67,7 @@
             <div class="modal-body">
               <div class="form-group">
                 <label>Name</label>
-                <input type="text" name="name1" class="form-control" required />
+                <input type="text" name="name" class="form-control" required />
               </div>
 
               <div class="form-group">
@@ -117,8 +117,8 @@
             </div>
 
             <div class="form-group">
-              <label for="password">Address</label>
-              <input type="address" class="form-control" id="address" name="password">
+              <label for="address">Address</label>
+              <input type="text" class="form-control" id="address" name="address" required>
             </div>  
 
              
@@ -139,6 +139,6 @@
 
 
 <?= $this->section('scripts') ?>
-<script> const baseUrl = "<?= base_url() ?>"; </script>
+<script> const baseUrl = "<?= base_url()?>";</script>
 <script src="<?= base_url('js/parent/parent.js') ?>"></script>
 <?= $this->endSection() ?>

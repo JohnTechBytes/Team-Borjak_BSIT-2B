@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Controllers;
-
-use App\Models\UserModel;
 use CodeIgniter\Controller;
 use App\Models\LogModel;
 use App\Models\StudentModel;
