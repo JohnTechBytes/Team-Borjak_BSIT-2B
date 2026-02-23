@@ -37,6 +37,45 @@ class Phone extends Controller
         }
     }
 
+     public function update() {
+        $model = new PhoneModel();
+        $logModel = new LogModel();
+
+        $userId   = $this->request->getPost('id');
+        $name     = $this->request->getPost('name');
+        $brand    = $this->request->getPost('brand');
+        $color = $this->request->getPost('color');
+       
+        $userData = [
+            'name'       => $name,
+            'brand'      => $brand,
+            'color'       => $color,
+      
+        ];
+
+        if (!empty($password)) {
+            $userData['password'] = password_hash('password', 'PASSWORD_BCRYPT');
+        }
+
+        if ($model->update($userId, $userData)) {
+            $logModel->addLog('User updated: ' . $name, 'UPDATED');
+            return $this->response->setJSON(['success' => true, 'message' => 'User updated successfully.']);
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Error updating user.']);
+        }
+    }
+
+    public function edit($id) {
+        $model = new PhoneModel();
+        $user = $model->find($id);
+
+        if ($user) {
+            return $this->response->setJSON(['data' => $user]);
+        } else {
+            return $this->response->setStatusCode(404)->setJSON(['error' => 'User not found']);
+        }
+    }
+
     
       public function fetchRecords() {
         $request = service('request');
