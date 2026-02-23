@@ -14,6 +14,30 @@ class Phone extends Controller
         return view('phone/index', $data);
     }
 
+     public function save() {
+      
+        $name     = $this->request->getPost('name');
+        $brand    = $this->request->getPost('brand');
+        $color = $this->request->getPost('color');
+        $userModel = new PhoneModel();
+        $logModel = new LogModel();
+
+
+        $data = [
+            'name'       => $name,
+            'color'      => $color,
+            'brand'       => $brand
+        ];
+
+        if ($userModel->insert($data)) {
+            $logModel->addLog('New User added: ' . $name, 'ADD');
+            return $this->response->setJSON(['status' => 'success']);
+        } else {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to save user']);
+        }
+    }
+
+    
       public function fetchRecords() {
         $request = service('request');
         $model = new PhoneModel();
