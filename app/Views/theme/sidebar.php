@@ -114,6 +114,14 @@ body.dark-mode .main-sidebar .nav-link:hover {
     </a>
 </li>
 
+
+     <li class="nav-item">
+      <a href="<?= base_url('phone') ?>" class="nav-link <?= is_active(1, 'phone') ?>">
+        <i class="nav-icon fas fa-user-lock"></i>
+        <p>Phone</p>
+      </a>
+    </li>
+
      <li class="nav-item">
       <a href="<?= base_url('users') ?>" class="nav-link <?= is_active(1, 'users') ?>">
         <i class="nav-icon fas fa-user-lock"></i>

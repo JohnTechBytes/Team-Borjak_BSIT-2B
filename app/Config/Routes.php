@@ -46,3 +46,10 @@ $routes->get('parent/edit/(:segment)', 'ParentTable::edit/$1');
 $routes->post('parent/update', 'ParentTable::update');
 $routes->delete('parent/delete/(:num)', 'ParentTable::delete/$1');
 $routes->post('parent/fetchRecords', 'ParentTable::fetchRecords');
+//phone routes
+$routes->get('/phone', 'Phone::index');
+$routes->post('phone/save', 'Phone::save');
+$routes->get('phone/edit/(:segment)', 'Phone::edit/$1');
+$routes->post('phone/update', 'Phone::update');
+$routes->delete('phone/delete/(:num)', 'Phone::delete/$1');
+$routes->post('phone/fetchRecords', 'Phone::fetchRecords');
