@@ -1,5 +1,8 @@
 {
   "name": "team-borjak_bsit_2b",
   "version": "1.0.0",
-  "private": true
+  "scripts": {
+    "build": "chmod +x build.sh && ./build.sh"
+  }
 }
+
