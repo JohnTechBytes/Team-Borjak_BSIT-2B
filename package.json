@@ -2,7 +2,6 @@
   "name": "team-borjak_bsit_2b",
   "version": "1.0.0",
   "scripts": {
-    "build": "chmod +x build.sh && ./build.sh"
+    "build": "curl -sS https://getcomposer.org/installer | php && php composer.phar install --no-dev --optimize-autoloader"
   }
 }
-
