@@ -2,6 +2,7 @@
   "name": "team-borjak-crud",
   "version": "1.0.0",
   "scripts": {
-    "build": "composer install --no-dev --optimize-autoloader"
+    "build": "curl -sS https://getcomposer.org/installer | php && php composer.phar install --no-dev --optimize-autoloader"
   }
 }
+
