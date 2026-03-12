@@ -1,10 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
-  "framework": "php",
   "functions": {
     "api/**/*.php": {
-      "runtime": "vercel-php@0.8.1" // Updated to latest stable PHP runtime
+      "runtime": "vercel-php@0.8.1"
     }
   },
   "routes": [
@@ -16,7 +15,5 @@
       "src": "/(.*)",
       "dest": "/api/index.php?$1"
     }
-  ],
-  "buildCommand": "composer install --no-dev --optimize-autoloader"
+  ]
 }
-
