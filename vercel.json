@@ -3,7 +3,7 @@
   "version": 2,
   "functions": {
     "api/**/*.php": {
-      "runtime": "vercel-php@0.7.2" // This version exists and works!
+      "runtime": "vercel-php@0.7.2"
     }
   },
   "routes": [
