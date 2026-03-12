@@ -9,6 +9,18 @@ class Logger extends BaseConfig
 {
     /**
      * --------------------------------------------------------------------------
+     * Debug Mode
+     * --------------------------------------------------------------------------
+     *
+     * Determines whether debug messages are logged and displayed.
+     * Must be a boolean value (true/false).
+     *
+     * @var bool
+     */
+    public bool $debug = (ENVIRONMENT === 'production') ? false : true;
+
+    /**
+     * --------------------------------------------------------------------------
      * Error Logging Threshold
      * --------------------------------------------------------------------------
      *
