@@ -1,0 +1,7 @@
+{
+  "name": "team-borjak-crud",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "composer install --no-dev --optimize-autoloader"
+  }
+}
