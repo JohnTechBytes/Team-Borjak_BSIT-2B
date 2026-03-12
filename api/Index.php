@@ -5,8 +5,7 @@
  * CHECK PHP VERSION
  *---------------------------------------------------------------
  */
-
-$minPhpVersion = '8.1'; // Match with your CodeIgniter setup
+$minPhpVersion = '8.1';
 if (version_compare(PHP_VERSION, $minPhpVersion, '<')) {
     $message = sprintf(
         'Your PHP version must be %s or higher to run CodeIgniter. Current version: %s',
@@ -21,13 +20,12 @@ if (version_compare(PHP_VERSION, $minPhpVersion, '<')) {
 
 /*
  *---------------------------------------------------------------
- * SET PATH CONSTANTS
+ * SET PATH CONSTANTS (API-SPECIFIC)
  *---------------------------------------------------------------
  */
-
 define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
+define('IS_API', true); // Optional: Mark as API for custom logic
 
-// Ensure correct working directory
 if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
     chdir(FCPATH);
 }
@@ -37,13 +35,8 @@ if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
  * LOAD CONFIG & BOOTSTRAP
  *---------------------------------------------------------------
  */
-
-// Load paths config (adjust path if your folder structure differs)
 require FCPATH . '../app/Config/Paths.php';
 $paths = new Config\Paths();
 
-// Load framework bootstrap
 require $paths->systemDirectory . '/Boot.php';
-
-// Initialize CodeIgniter
 exit(CodeIgniter\Boot::bootWeb($paths));
