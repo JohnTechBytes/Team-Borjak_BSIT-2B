@@ -1,19 +1,9 @@
 <?php
 
-/**
-* Description:  This Codeigniter Framework is created to build smart web applications
-* Author:       Glenn Azuelo
-* Date Created: April 14, 2025
-* Revised By:       
-*/
-
 namespace Config;
 
 use CodeIgniter\Database\Config;
 
-/**
- * Database Configuration
- */
 class Database extends Config
 {
     /**
@@ -31,215 +21,65 @@ class Database extends Config
      *
      * @var array<string, mixed>
      */
-
-    public function __construct()
-    {
-        parent::__construct();
-
-        // Initialize the default configuration with dynamic values.
-        $this->default = [
-            'DSN'      => '',
-            'hostname' => getenv('database.default.hostname') ?: 'localhost',
-            'username' => getenv('database.default.username') ?: 'root',
-            'password' => getenv('database.default.password') ?: '',
-            'database' => getenv('database.default.database') ?: '',
-            'DBDriver' => getenv('database.default.DBDriver') ?: 'MySQLi',
-            'DBPrefix' => '',
-            'pConnect' => false,
-            'DBDebug'  => (ENVIRONMENT !== 'production'),
-            'cacheOn'  => false,
-            'cacheDir' => '',
-            'charset'  => 'utf8',
-            'DBCollat' => 'utf8_general_ci',
-            'swapPre'  => '',
-            'encrypt'  => false,
-            'compress' => false,
-            'strictOn' => false,
-            'failover' => [],
-            'port'     => (int) getenv('database.default.port') ?: 3306, // Explicitly casting to integer
-        ];
-
-        // If running in a testing environment, use the 'tests' connection group
-        if (ENVIRONMENT === 'testing') {
-            $this->defaultGroup = 'tests';
-        }
-    }
-
-
-    // public array $default = [
-    //     'DSN'          => '',
-    //     'hostname'     => 'localhost',
-    //     'username'     => 'phpmyadmin',
-    //     'password'     => '1234',
-    //     'database'     => 'newdb_brgy',
-    //     'DBDriver'     => 'MySQLi',
-    //     'DBPrefix'     => '',
-    //     'pConnect'     => false,
-    //     'DBDebug'      => true,
-    //     'charset'      => 'utf8mb4',
-    //     'DBCollat'     => 'utf8mb4_general_ci',
-    //     'swapPre'      => '',
-    //     'encrypt'      => false,
-    //     'compress'     => false,
-    //     'strictOn'     => false,
-    //     'failover'     => [],
-    //     'port'         => 3306,
-    //     'numberNative' => false,
-    //     'foundRows'    => false,
-    //     'dateFormat'   => [
-    //         'date'     => 'Y-m-d',
-    //         'datetime' => 'Y-m-d H:i:s',
-    //         'time'     => 'H:i:s',
-    //     ],
-    // ];
-
-    //    /**
-    //     * Sample database connection for SQLite3.
-    //     *
-    //     * @var array<string, mixed>
-    //     */
-    //    public array $default = [
-    //        'database'    => 'database.db',
-    //        'DBDriver'    => 'SQLite3',
-    //        'DBPrefix'    => '',
-    //        'DBDebug'     => true,
-    //        'swapPre'     => '',
-    //        'failover'    => [],
-    //        'foreignKeys' => true,
-    //        'busyTimeout' => 1000,
-    //        'synchronous' => null,
-    //        'dateFormat'  => [
-    //            'date'     => 'Y-m-d',
-    //            'datetime' => 'Y-m-d H:i:s',
-    //            'time'     => 'H:i:s',
-    //        ],
-    //    ];
-
-    //    /**
-    //     * Sample database connection for Postgre.
-    //     *
-    //     * @var array<string, mixed>
-    //     */
-    //    public array $default = [
-    //        'DSN'        => '',
-    //        'hostname'   => 'localhost',
-    //        'username'   => 'root',
-    //        'password'   => 'root',
-    //        'database'   => 'ci4',
-    //        'schema'     => 'public',
-    //        'DBDriver'   => 'Postgre',
-    //        'DBPrefix'   => '',
-    //        'pConnect'   => false,
-    //        'DBDebug'    => true,
-    //        'charset'    => 'utf8',
-    //        'swapPre'    => '',
-    //        'failover'   => [],
-    //        'port'       => 5432,
-    //        'dateFormat' => [
-    //            'date'     => 'Y-m-d',
-    //            'datetime' => 'Y-m-d H:i:s',
-    //            'time'     => 'H:i:s',
-    //        ],
-    //    ];
-
-    //    /**
-    //     * Sample database connection for SQLSRV.
-    //     *
-    //     * @var array<string, mixed>
-    //     */
-    //    public array $default = [
-    //        'DSN'        => '',
-    //        'hostname'   => 'localhost',
-    //        'username'   => 'root',
-    //        'password'   => 'root',
-    //        'database'   => 'ci4',
-    //        'schema'     => 'dbo',
-    //        'DBDriver'   => 'SQLSRV',
-    //        'DBPrefix'   => '',
-    //        'pConnect'   => false,
-    //        'DBDebug'    => true,
-    //        'charset'    => 'utf8',
-    //        'swapPre'    => '',
-    //        'encrypt'    => false,
-    //        'failover'   => [],
-    //        'port'       => 1433,
-    //        'dateFormat' => [
-    //            'date'     => 'Y-m-d',
-    //            'datetime' => 'Y-m-d H:i:s',
-    //            'time'     => 'H:i:s',
-    //        ],
-    //    ];
-
-    //    /**
-    //     * Sample database connection for OCI8.
-    //     *
-    //     * You may need the following environment variables:
-    //     *   NLS_LANG                = 'AMERICAN_AMERICA.UTF8'
-    //     *   NLS_DATE_FORMAT         = 'YYYY-MM-DD HH24:MI:SS'
-    //     *   NLS_TIMESTAMP_FORMAT    = 'YYYY-MM-DD HH24:MI:SS'
-    //     *   NLS_TIMESTAMP_TZ_FORMAT = 'YYYY-MM-DD HH24:MI:SS'
-    //     *
-    //     * @var array<string, mixed>
-    //     */
-    //    public array $default = [
-    //        'DSN'        => 'localhost:1521/XEPDB1',
-    //        'username'   => 'root',
-    //        'password'   => 'root',
-    //        'DBDriver'   => 'OCI8',
-    //        'DBPrefix'   => '',
-    //        'pConnect'   => false,
-    //        'DBDebug'    => true,
-    //        'charset'    => 'AL32UTF8',
-    //        'swapPre'    => '',
-    //        'failover'   => [],
-    //        'dateFormat' => [
-    //            'date'     => 'Y-m-d',
-    //            'datetime' => 'Y-m-d H:i:s',
-    //            'time'     => 'H:i:s',
-    //        ],
-    //    ];
-
-    /**
-     * This database connection is used when running PHPUnit database tests.
-     *
-     * @var array<string, mixed>
-     */
-    public array $tests = [
-        'DSN'         => '',
-        'hostname'    => '127.0.0.1',
-        'username'    => '',
-        'password'    => '',
-        'database'    => ':memory:',
-        'DBDriver'    => 'SQLite3',
-        'DBPrefix'    => 'db_',  // Needed to ensure we're working correctly with prefixes live. DO NOT REMOVE FOR CI DEVS
-        'pConnect'    => false,
-        'DBDebug'     => true,
-        'charset'     => 'utf8',
-        'DBCollat'    => '',
-        'swapPre'     => '',
-        'encrypt'     => false,
-        'compress'    => false,
-        'strictOn'    => false,
-        'failover'    => [],
-        'port'        => 3306,
-        'foreignKeys' => true,
-        'busyTimeout' => 1000,
-        'dateFormat'  => [
-            'date'     => 'Y-m-d',
-            'datetime' => 'Y-m-d H:i:s',
-            'time'     => 'H:i:s',
-        ],
+    public array $default = [
+        'DSN'          => '',
+        'hostname'     => 'localhost', // Local: 'localhost'; Production: Use your DB host (e.g., Vercel Postgres, AWS RDS)
+        'username'     => 'root', // Local: 'root'; Production: Your DB username
+        'password'     => '', // Local: Empty for XAMPP; Production: Your DB password
+        'database'     => 'team_borjak_db', // Name your database (match local/production DB name)
+        'DBDriver'     => 'MySQLi', // Use 'Postgre' if using PostgreSQL
+        'DBPrefix'     => '',
+        'pConnect'     => false,
+        'DBDebug'      => ENVIRONMENT !== 'production', // Disable debug in production
+        'charset'      => 'utf8mb4', // Supports emojis and all Filipino characters
+        'DBCollat'     => 'utf8mb4_general_ci',
+        'swapPre'      => '',
+        'encrypt'      => false,
+        'compress'     => false,
+        'strictOn'     => true, // Enforce strict SQL mode (best practice)
+        'failover'     => [],
+        'port'         => 3306, // Default MySQL port; adjust if using custom port
     ];
 
-    // public function __construct()
-    // {
-    //     parent::__construct();
+    /**
+     * Alternative connection for Vercel (if using Vercel Postgres or external DB)
+     * Uncomment and configure if you use a cloud database
+     */
+    // public array $vercel = [
+    //     'DSN'          => 'pgsql:host=aws-0-us-west-1.pooler.supabase.com;port=5432;dbname=postgres',
+    //     'hostname'     => 'aws-0-us-west-1.pooler.supabase.com',
+    //     'username'     => 'postgres.user', // Your cloud DB username
+    //     'password'     => 'your-cloud-db-password', // Your cloud DB password
+    //     'database'     => 'postgres',
+    //     'DBDriver'     => 'Postgre',
+    //     'DBPrefix'     => '',
+    //     'pConnect'     => false,
+    //     'DBDebug'      => false,
+    //     'charset'      => 'utf8mb4',
+    //     'DBCollat'     => '',
+    //     'swapPre'      => '',
+    //     'encrypt'      => true,
+    //     'compress'     => false,
+    //     'strictOn'     => true,
+    //     'failover'     => [],
+    //     'port'         => 5432,
+    // ];
 
-    //     // Ensure that we always set the database group to 'tests' if
-    //     // we are currently running an automated test suite, so that
-    //     // we don't overwrite live data on accident.
-    //     if (ENVIRONMENT === 'testing') {
-    //         $this->defaultGroup = 'tests';
-    //     }
-    // }
+    /**
+     * If you need to connect to multiple databases, add more connection groups here.
+     */
+    public array $groups = [];
+
+    /**
+     * Enable query builder for all connections.
+     */
+    public bool $allowCallbacks = true;
+
+    /**
+     * Configure how the query builder escapes identifiers and values.
+     */
+    public array $escape = [
+        'likeEscape' => '\\',
+        'likeWildcards' => true,
+    ];
 }
